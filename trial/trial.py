@@ -1,13 +1,20 @@
+import numpy as np
 import cv2 as cv
-import sys
+from matplotlib import pyplot as plt
 
-img = cv.imread(cv.samples.findFile("6222.png"))
+img = cv.imread('flame.png', cv.IMREAD_GRAYSCALE)
+assert img is not None, "image not found"
 
-if img is None:
-    sys.exit("image not found. exiting...")
+edges = cv.Canny(img,100,200)
 
-cv.imshow("display window", img)
-k = cv.waitKey(0)
+plt.subplot(121)
+plt.imshow(img, cmap = 'gray')
+plt.title('original')
 
-if k == ord("s"):
-    cv.imwrite("6222.png")
+plt.subplot(122)
+plt.imshow(edges, cmap = 'gray')
+plt.title('edges')
+
+plt.show()
+
+
